@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -64,9 +65,40 @@ public class TestStreamBasics {
         Optional<Integer> min_num = list_int.stream().min((num1,num2)->num1.compareTo(num2));
         System.out.println("Minimum number in stream: " + min_num.get());
     }
-
+    /*
+    Use case 2.7: Find sum and average of the number stream
+     */
+    public void findSumAverage(){
+        List<Integer> list_int = Arrays.asList(12,19,34,55,32,41,21,81,202,100);
+        // find number of elements in the stream
+        long cnt_nums = list_int.stream().count();
+        // find sum of all the elements of the stream
+        int sum_nums = list_int.stream().reduce(0,(num1,num2)->(num1+num2));
+        System.out.println("Sum of numbers in stream: "+sum_nums);
+        System.out.println("Average of numbers in stream: "+sum_nums/cnt_nums);
+    }
+    /*
+    Use case 2.8: find all the number or at least one number is even in the number stream
+     */
+    public void findAllOrAtLeastOneEven(){
+        List<Integer> list_int = Arrays.asList(1,3,5,7,10);
+        boolean all_even = list_int.stream().allMatch(num -> num%2==0);
+        System.out.println("All numbers in stream even: "+ all_even);
+        boolean at_least_one_even = list_int.stream().anyMatch(num->num%2==0);
+        System.out.println("At least one number in stream even: " + at_least_one_even);
+        boolean none_even = list_int.stream().noneMatch(num->num%2==0);
+        System.out.println("No number in the stream is even: "+ none_even);
+    }
+    /*
+    Use case 2.9: Sort number stream in ascending order
+     */
+    public void sortAscending(){
+        List<Integer> list_int = Arrays.asList(12,5,9,67,45,21,7,25);
+        List<Integer> list_sort_int = list_int.stream().sorted().collect(toList());
+        System.out.println((list_sort_int));
+    }
     public static void main(String[] args) {
         TestStreamBasics testbasic = new TestStreamBasics();
-        testbasic.findMaxMin();
+        testbasic.sortAscending();
     }
 }
